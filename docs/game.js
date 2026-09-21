@@ -4,7 +4,7 @@ const names=['はやぶさ','こまち','ドクターイエロー','やまのて
 const stages=['まち','たんぼ','うみ','ゆきやま'],icons=['🏡','🌾','🐚','⛄'];
 let selected=-1,paused=false,sound=true,audio=null,last=0,scale=1,ox=0,oy=0,w=0,h=0,pops=[],noticeTimer=0;
 const bg=new Image(),art=new Image();bg.src='assets/worlds.png';art.src='assets/trains.png';
-function resize(){const r=canvas.getBoundingClientRect();w=r.width;h=r.height;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(w/1150,h/820);ox=w/2-500*scale;oy=h/2-510*scale;}
+function resize(){const r=canvas.getBoundingClientRect();w=r.width;h=r.height;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.max(w/1150,h/820);ox=w/2-500*scale;oy=h/2-510*scale;world.view={left:-ox/scale,right:(w-ox)/scale};}
 new ResizeObserver(resize).observe(canvas);
 function beep(freq=520,duration=.16){if(!sound||!audio)return;const osc=audio.createOscillator(),gain=audio.createGain();osc.type='sine';osc.frequency.setValueAtTime(freq,audio.currentTime);osc.frequency.exponentialRampToValueAtTime(freq*.75,audio.currentTime+duration);gain.gain.setValueAtTime(.045,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);osc.connect(gain).connect(audio.destination);osc.start();osc.stop(audio.currentTime+duration);}
 
